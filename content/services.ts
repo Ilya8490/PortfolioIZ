@@ -2,32 +2,24 @@ import type { Service } from "@/types";
 
 export const services: Service[] = [
   {
-    title: "Website Design",
+    title: "Website Design & Development",
+    targetClient:
+      "For startups and businesses that need a site that converts visitors, not just impresses them.",
     description:
-      "Clear visual systems for business websites that explain the offer quickly.",
+      "I design and build fast, responsive websites with clear structure, polished interfaces, and frontend code that is easy to maintain and extend.",
   },
   {
-    title: "Landing Pages",
+    title: "Landing Pages & UX/UI",
+    targetClient:
+      "For teams launching a product, campaign, or redesign and needing it done right the first time.",
     description:
-      "Focused pages shaped around one audience, one offer, and one next action.",
+      "High-converting landing pages and interface redesigns focused on clarity, user flow, and measurable improvement over what existed before.",
   },
   {
-    title: "UX/UI Redesign",
-    description: "Interface improvements that make flows easier to understand and use.",
-  },
-  {
-    title: "Frontend Development",
+    title: "Performance & SEO Foundations",
+    targetClient:
+      "For businesses whose existing site is slow, ranks poorly, or loses users before they convert.",
     description:
-      "Fast, responsive interfaces built with modern React and clean architecture.",
-  },
-  {
-    title: "Performance Optimization",
-    description:
-      "Frontend improvements that reduce friction and keep pages feeling quick.",
-  },
-  {
-    title: "SEO Foundations",
-    description:
-      "Technical structure, metadata, and semantic markup for discoverable pages.",
+      "Technical performance audits, Core Web Vitals improvements, and SEO foundations that make your site faster to load and easier to find.",
   },
 ];

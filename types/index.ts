@@ -16,7 +16,13 @@ export type Project = {
 
 export type Service = {
   title: string;
+  targetClient: string;
   description: string;
+};
+
+export type AboutStat = {
+  value: string;
+  label: string;
 };
 
 export type ProcessStep = {
