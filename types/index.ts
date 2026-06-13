@@ -23,3 +23,10 @@ export type ProcessStep = {
   title: string;
   description: string;
 };
+
+export type InterfaceLabItem = {
+  title: string;
+  description: string;
+  icon: string;
+  demo: "navigation" | "booking" | "dashboard" | "mobile" | "micro";
+};
