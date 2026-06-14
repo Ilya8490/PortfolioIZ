@@ -1,12 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { aboutStats } from "@/content/about";
-import { prefersReducedMotion } from "@/lib/animation";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ANIM, prefersReducedMotion } from "@/lib/animation";
+import { gsap } from "@/lib/gsap";
 
 type PhilosophyFragment = {
   text: string;
@@ -51,58 +50,67 @@ export function About() {
       return;
     }
 
+    let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
+
     const context = gsap.context(() => {
       const aboutContent = root.querySelectorAll("[data-about-reveal]");
       const philosophyBlock = root.querySelector("[data-philosophy-block]");
       const philosophyLine = root.querySelector("[data-philosophy-line]");
       const philosophyWords = root.querySelectorAll("[data-philosophy-word]");
 
-      gsap.set(aboutContent, { opacity: 0, y: 24 });
-      gsap.to(aboutContent, {
-        opacity: 1,
-        y: 0,
-        duration: 0.78,
-        ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: root,
-          start: "top 70%",
-          once: true,
-        },
-      });
-
-      if (philosophyBlock && philosophyLine && philosophyWords.length > 0) {
-        const timeline = gsap.timeline({
+      matchMedia = gsap.matchMedia();
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(aboutContent, {
+          opacity: 0,
+          y: 24,
+          duration: ANIM.duration.default,
+          ease: ANIM.ease.enter,
+          stagger: ANIM.stagger.cards,
           scrollTrigger: {
-            trigger: philosophyBlock,
-            start: "top 70%",
-            once: true,
+            trigger: root,
+            start: ANIM.scrollTrigger.start,
+            once: ANIM.scrollTrigger.once,
           },
         });
 
-        timeline
-          .fromTo(
-            philosophyLine,
-            { height: 0 },
-            { height: "100%", duration: 0.8, ease: "power2.out" },
-            0,
-          )
-          .fromTo(
-            philosophyWords,
-            { opacity: 0, y: 12 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.5,
-              ease: "power2.out",
-              stagger: 0.055,
+        if (philosophyBlock && philosophyLine && philosophyWords.length > 0) {
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: philosophyBlock,
+              start: ANIM.scrollTrigger.start,
+              once: ANIM.scrollTrigger.once,
             },
-            0,
-          );
-      }
+          });
+
+          timeline
+            .from(
+              philosophyLine,
+              {
+                height: 0,
+                duration: ANIM.duration.draw,
+                ease: ANIM.ease.default,
+              },
+              0,
+            )
+            .from(
+              philosophyWords,
+              {
+                opacity: 0,
+                y: 12,
+                duration: ANIM.duration.fast,
+                ease: ANIM.ease.default,
+                stagger: ANIM.stagger.words,
+              },
+              0,
+            );
+        }
+      });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      matchMedia?.revert();
+      context.revert();
+    };
   }, []);
 
   return (
@@ -116,23 +124,20 @@ export function About() {
         <div className="grid gap-10 lg:grid-cols-[0.62fr_1fr] lg:items-center lg:gap-16">
           <div
             data-about-reveal
-            aria-label="Portrait placeholder for Ilya"
-            className="relative aspect-[3/4] min-h-96 overflow-hidden border border-(--line) bg-(--card)"
+            className="relative aspect-3/4 min-h-96 overflow-hidden border border-(--line) bg-(--card)"
           >
-            {/* TODO: Replace with real portrait - see photo direction in PRD */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_38%_18%,rgba(240,240,232,0.2),transparent_12rem),linear-gradient(145deg,rgba(240,240,232,0.11),transparent_48%)]" />
+            <Image
+              src="/images/ilya-portrait.jpeg"
+              alt="Portrait of Ilya"
+              fill
+              priority={false}
+              sizes="(min-width: 1024px) 38vw, calc(100vw - 32px)"
+              className="object-cover object-[50%_34%]"
+            />
             <div
-              className="absolute inset-0 opacity-[0.16] [background-image:radial-gradient(rgba(240,240,232,0.65)_0.7px,transparent_0.7px)] [background-size:4px_4px]"
+              className="absolute inset-0 bg-[linear-gradient(180deg,transparent_56%,rgba(10,10,15,0.42))]"
               aria-hidden="true"
             />
-            <div className="absolute bottom-6 left-6 right-6 border-t border-(--line) pt-5">
-              <p className="text-mono-label text-[10px] text-(--fog)">
-                Portrait direction
-              </p>
-              <p className="mt-3 max-w-xs text-sm leading-6 text-(--paper)">
-                Dark, high-contrast, rectangular frame.
-              </p>
-            </div>
           </div>
 
           <div data-about-reveal>
@@ -183,7 +188,7 @@ export function About() {
           aria-label="Design philosophy"
           className="mt-16 border border-(--line) bg-(--card) px-6 py-10 md:mt-24 md:px-10 md:py-14"
         >
-          <div className="relative max-w-4xl pl-6">
+          <RevealOnScroll className="relative max-w-4xl pl-6">
             <span
               data-philosophy-line
               data-testid="philosophy-line"
@@ -215,7 +220,7 @@ export function About() {
                 ]}
               />
             </p>
-          </div>
+          </RevealOnScroll>
         </div>
       </div>
     </section>

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { heroContent } from "@/content/hero";
-import { prefersReducedMotion } from "@/lib/animation";
+import { ANIM, prefersReducedMotion } from "@/lib/animation";
+import { gsap } from "@/lib/gsap";
 
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
@@ -18,41 +18,46 @@ export function Hero() {
       return;
     }
 
+    let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
+
     const context = gsap.context(() => {
       const revealItems = root.querySelectorAll("[data-hero-reveal]");
 
-      gsap.set(revealItems, { opacity: 0, y: 24 });
-      gsap.set(codeRef.current, { opacity: 0, y: 28, rotate: -1.5 });
+      matchMedia = gsap.matchMedia();
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        const timeline = gsap.timeline({ defaults: { ease: ANIM.ease.enter } });
 
-      const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      timeline
-        .to(revealItems, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.09,
-        })
-        .to(
-          codeRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            rotate: 0,
-            duration: 0.9,
-          },
-          "-=0.45",
-        )
-        .to(codeRef.current, {
-          y: -10,
-          duration: 2.6,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
+        timeline
+          .from(revealItems, {
+            opacity: 0,
+            y: 24,
+            duration: ANIM.duration.default,
+            stagger: ANIM.stagger.items,
+          })
+          .from(
+            codeRef.current,
+            {
+              opacity: 0,
+              y: 28,
+              rotate: -1.5,
+              duration: ANIM.duration.slow,
+            },
+            `-=${ANIM.duration.fast}`,
+          )
+          .to(codeRef.current, {
+            y: -10,
+            duration: ANIM.duration.slow * 3,
+            ease: ANIM.ease.default,
+            repeat: -1,
+            yoyo: true,
+          });
+      });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      matchMedia?.revert();
+      context.revert();
+    };
   }, []);
 
   return (

@@ -93,6 +93,11 @@ select {
   mask-image: linear-gradient(to bottom, black 64%, transparent 100%);
 }
 
+.motion-reveal {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { processSteps } from "@/content/process";
-import { prefersReducedMotion } from "@/lib/animation";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ANIM, prefersReducedMotion } from "@/lib/animation";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const markerIcons = ["?", "->", "[]", "UI", "<>", "{}", "OK"];
 
@@ -20,25 +18,52 @@ export function Process() {
       return;
     }
 
+    let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
+
     const context = gsap.context(() => {
       const steps = root.querySelectorAll("[data-process-step]");
+      const line = root.querySelector("[data-process-line]");
 
-      gsap.set(steps, { opacity: 0, y: 24 });
-      gsap.to(steps, {
-        opacity: 1,
-        y: 0,
-        duration: 0.72,
-        ease: "power3.out",
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: root,
-          start: "top 70%",
-          once: true,
-        },
+      matchMedia = gsap.matchMedia();
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: root,
+            start: ANIM.scrollTrigger.start,
+            once: ANIM.scrollTrigger.once,
+            scrub: ScrollTrigger.isTouch ? false : ANIM.duration.fast,
+          },
+        });
+
+        timeline
+          .from(
+            line,
+            {
+              scaleX: 0,
+              transformOrigin: "left",
+              duration: ANIM.duration.draw,
+              ease: ANIM.ease.default,
+            },
+            0,
+          )
+          .from(
+            steps,
+            {
+              opacity: 0,
+              y: ScrollTrigger.isTouch ? 12 : 24,
+              duration: ANIM.duration.default,
+              ease: ANIM.ease.enter,
+              stagger: ANIM.stagger.items,
+            },
+            ScrollTrigger.isTouch ? 0 : ANIM.duration.fast,
+          );
       });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      matchMedia?.revert();
+      context.revert();
+    };
   }, []);
 
   return (
@@ -49,7 +74,7 @@ export function Process() {
       className="border-t border-(--line) bg-(--ink) py-24 md:py-32"
     >
       <div className="section-shell">
-        <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-end lg:gap-16">
+        <RevealOnScroll className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-end lg:gap-16">
           <p className="text-mono-label text-xs text-(--lime)">UX Process</p>
           <h2
             id="process-title"
@@ -57,10 +82,11 @@ export function Process() {
           >
             A process built for clarity, performance and results.
           </h2>
-        </div>
+        </RevealOnScroll>
 
         <div className="relative mt-14 md:mt-20">
           <div
+            data-process-line
             className="absolute left-[1.05rem] top-0 h-full border-l border-dotted border-[rgba(240,240,232,0.28)] md:left-0 md:right-0 md:top-[1.18rem] md:h-px md:border-l-0 md:border-t"
             aria-hidden="true"
           />

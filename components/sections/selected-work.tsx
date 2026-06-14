@@ -2,12 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { clsx } from "clsx";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { projects } from "@/content/projects";
-import { prefersReducedMotion } from "@/lib/animation";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ANIM, prefersReducedMotion } from "@/lib/animation";
+import { gsap } from "@/lib/gsap";
 
 const statusLabel = {
   verified: "Verified",
@@ -24,25 +22,64 @@ export function SelectedWork() {
       return;
     }
 
+    let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
+
     const context = gsap.context(() => {
       const rows = root.querySelectorAll("[data-work-row]");
 
-      gsap.set(rows, { opacity: 0, y: 34 });
-      gsap.to(rows, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: {
-          trigger: root,
-          start: "top 68%",
-          once: true,
-        },
+      matchMedia = gsap.matchMedia();
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        rows.forEach((row) => {
+          const content = row.querySelector("[data-work-content]");
+          const visual = row.querySelector("[data-work-visual]");
+          const number = row.querySelector("[data-work-number]");
+
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: row,
+              start: ANIM.scrollTrigger.start,
+              once: ANIM.scrollTrigger.once,
+            },
+          });
+
+          timeline
+            .from(
+              content,
+              {
+                opacity: 0,
+                x: -20,
+                duration: ANIM.duration.default,
+                ease: ANIM.ease.enter,
+              },
+              0,
+            )
+            .from(
+              visual,
+              {
+                opacity: 0,
+                x: 20,
+                duration: ANIM.duration.default,
+                ease: ANIM.ease.enter,
+              },
+              0,
+            )
+            .from(
+              number,
+              {
+                opacity: 0,
+                duration: ANIM.duration.fast,
+                ease: ANIM.ease.default,
+              },
+              0,
+            );
+        });
       });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      matchMedia?.revert();
+      context.revert();
+    };
   }, []);
 
   return (
@@ -53,7 +90,7 @@ export function SelectedWork() {
       className="border-t border-(--line) bg-(--ink) py-24 md:py-32"
     >
       <div className="section-shell">
-        <div className="grid gap-8 border-b border-(--line) pb-12 lg:grid-cols-[0.72fr_1fr] lg:items-end lg:gap-16">
+        <RevealOnScroll className="grid gap-8 border-b border-(--line) pb-12 lg:grid-cols-[0.72fr_1fr] lg:items-end lg:gap-16">
           <p className="text-mono-label text-xs text-(--lime)">Selected Work</p>
           <h2
             id="selected-work-title"
@@ -61,7 +98,7 @@ export function SelectedWork() {
           >
             A few sharp builds, shown with clear source confidence.
           </h2>
-        </div>
+        </RevealOnScroll>
 
         <div>
           {projects.map((project, index) => {
@@ -81,9 +118,12 @@ export function SelectedWork() {
                   isReversed && "lg:grid-flow-col-dense",
                 )}
               >
-                <div className={clsx(isReversed && "lg:col-start-2")}>
+                <div data-work-content className={clsx(isReversed && "lg:col-start-2")}>
                   <div className="mb-7 flex items-start justify-between gap-6">
-                    <span className="text-display text-7xl leading-none text-transparent opacity-70 transition-opacity duration-300 [-webkit-text-stroke:1px_rgba(240,240,232,0.36)] group-hover:opacity-40 md:text-8xl">
+                    <span
+                      data-work-number
+                      className="text-display text-7xl leading-none text-transparent opacity-[0.06] transition-opacity duration-300 [-webkit-text-stroke:1px_rgba(240,240,232,0.36)] group-hover:opacity-[0.03] md:text-8xl"
+                    >
                       {projectNumber}
                     </span>
                     <span
@@ -101,7 +141,7 @@ export function SelectedWork() {
                   <p className="text-mono-label text-xs text-(--fog)">
                     {project.category}
                   </p>
-                  <h3 className="text-display mt-4 text-4xl leading-[1] text-(--paper) md:text-5xl">
+                  <h3 className="text-display mt-4 text-4xl leading-none text-(--paper) md:text-5xl">
                     {project.title}
                   </h3>
                   <p className="mt-5 max-w-2xl text-sm leading-7 text-(--fog) md:text-base">
@@ -137,6 +177,7 @@ export function SelectedWork() {
                 </div>
 
                 <div
+                  data-work-visual
                   className={clsx(
                     "relative min-h-72 overflow-hidden border border-(--line) bg-(--card) p-4 transition-colors duration-300 group-hover:border-[rgba(232,255,71,0.42)] md:min-h-96",
                     isReversed && "lg:col-start-1",

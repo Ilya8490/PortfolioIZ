@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { services } from "@/content/services";
-import { prefersReducedMotion } from "@/lib/animation";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ANIM, prefersReducedMotion } from "@/lib/animation";
+import { gsap } from "@/lib/gsap";
 
 export function Services() {
   const rootRef = useRef<HTMLElement>(null);
@@ -18,25 +16,32 @@ export function Services() {
       return;
     }
 
+    let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
+
     const context = gsap.context(() => {
       const cards = root.querySelectorAll("[data-service-card]");
 
-      gsap.set(cards, { opacity: 0, y: 24 });
-      gsap.to(cards, {
-        opacity: 1,
-        y: 0,
-        duration: 0.72,
-        ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: root,
-          start: "top 72%",
-          once: true,
-        },
+      matchMedia = gsap.matchMedia();
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(cards, {
+          opacity: 0,
+          y: 24,
+          duration: ANIM.duration.default,
+          ease: ANIM.ease.enter,
+          stagger: ANIM.stagger.cards,
+          scrollTrigger: {
+            trigger: root,
+            start: ANIM.scrollTrigger.start,
+            once: ANIM.scrollTrigger.once,
+          },
+        });
       });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      matchMedia?.revert();
+      context.revert();
+    };
   }, []);
 
   return (
@@ -47,7 +52,7 @@ export function Services() {
       className="border-t border-(--line) bg-(--ink) py-24 md:py-32"
     >
       <div className="section-shell">
-        <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-end lg:gap-16">
+        <RevealOnScroll className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-end lg:gap-16">
           <p className="text-mono-label text-xs text-(--lime)">Services</p>
           <h2
             id="services-title"
@@ -55,7 +60,7 @@ export function Services() {
           >
             Specialist help for websites that need to perform.
           </h2>
-        </div>
+        </RevealOnScroll>
 
         <div className="mt-14 grid gap-px border border-(--line) bg-(--line) md:mt-20 lg:grid-cols-3">
           {services.map((service) => (

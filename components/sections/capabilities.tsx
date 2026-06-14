@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { capabilities } from "@/content/capabilities";
-import { prefersReducedMotion } from "@/lib/animation";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ANIM, prefersReducedMotion } from "@/lib/animation";
+import { gsap } from "@/lib/gsap";
 
 export function Capabilities() {
   const rootRef = useRef<HTMLElement>(null);
@@ -18,25 +16,32 @@ export function Capabilities() {
       return;
     }
 
+    let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
+
     const context = gsap.context(() => {
       const cards = root.querySelectorAll("[data-capability-card]");
 
-      gsap.set(cards, { opacity: 0, y: 28 });
-      gsap.to(cards, {
-        opacity: 1,
-        y: 0,
-        duration: 0.72,
-        ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: root,
-          start: "top 72%",
-          once: true,
-        },
+      matchMedia = gsap.matchMedia();
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(cards, {
+          opacity: 0,
+          y: 28,
+          duration: ANIM.duration.default,
+          ease: ANIM.ease.enter,
+          stagger: ANIM.stagger.cards,
+          scrollTrigger: {
+            trigger: root,
+            start: ANIM.scrollTrigger.start,
+            once: ANIM.scrollTrigger.once,
+          },
+        });
       });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      matchMedia?.revert();
+      context.revert();
+    };
   }, []);
 
   return (
@@ -46,7 +51,7 @@ export function Capabilities() {
       className="section-shell border-t border-(--line) py-24 md:py-32"
     >
       <div className="grid gap-12 lg:grid-cols-[0.72fr_1fr] lg:gap-16">
-        <div>
+        <RevealOnScroll>
           <p className="text-mono-label mb-5 text-xs text-(--lime)">
             Selected Capabilities
           </p>
@@ -56,7 +61,7 @@ export function Capabilities() {
           >
             Clear interfaces, fast builds, and the details that make websites useful.
           </h2>
-        </div>
+        </RevealOnScroll>
 
         <div className="grid gap-px border border-(--line) bg-(--line) sm:grid-cols-2">
           {capabilities.map((capability) => (

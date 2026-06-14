@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { contactContent } from "@/content/contact";
-import { prefersReducedMotion } from "@/lib/animation";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ANIM, prefersReducedMotion } from "@/lib/animation";
+import { gsap } from "@/lib/gsap";
 
 const headline =
   "Open to the right opportunity. Freelance projects or full-time roles - let's talk.";
@@ -40,53 +38,62 @@ export function Contact() {
       return;
     }
 
+    let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
+
     const context = gsap.context(() => {
       const words = root.querySelectorAll("[data-contact-headline-word]");
       const line = root.querySelector("[data-contact-accent-line]");
       const actions = root.querySelectorAll("[data-contact-action]");
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: "top 70%",
-          once: true,
-        },
-      });
+      matchMedia = gsap.matchMedia();
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: root,
+            start: ANIM.scrollTrigger.start,
+            once: ANIM.scrollTrigger.once,
+          },
+        });
 
-      timeline
-        .fromTo(
-          line,
-          { height: 0 },
-          { height: "100%", duration: 0.6, ease: "power2.out" },
-          0,
-        )
-        .fromTo(
-          words,
-          { opacity: 0, y: 12 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-            stagger: 0.055,
-          },
-          0,
-        )
-        .fromTo(
-          actions,
-          { opacity: 0, scale: 0.97 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "power2.out",
-            stagger: 0.15,
-          },
-          0.12,
-        );
+        timeline
+          .from(
+            line,
+            {
+              height: 0,
+              duration: ANIM.duration.default,
+              ease: ANIM.ease.default,
+            },
+            0,
+          )
+          .from(
+            words,
+            {
+              opacity: 0,
+              y: 12,
+              duration: ANIM.duration.fast,
+              ease: ANIM.ease.default,
+              stagger: ANIM.stagger.words,
+            },
+            0,
+          )
+          .from(
+            actions,
+            {
+              opacity: 0,
+              scale: 0.97,
+              duration: ANIM.duration.fast,
+              ease: ANIM.ease.default,
+              stagger: ANIM.stagger.cards,
+            },
+            ANIM.duration.fast,
+          );
+      });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      matchMedia?.revert();
+      context.revert();
+    };
   }, []);
 
   return (
@@ -97,7 +104,7 @@ export function Contact() {
       className="border-t border-(--line) bg-(--card) py-24 md:py-32"
     >
       <div className="section-shell grid gap-12 lg:grid-cols-[1fr_0.72fr] lg:items-center lg:gap-16">
-        <div className="relative pl-6">
+        <RevealOnScroll className="relative pl-6">
           <span
             data-contact-accent-line
             data-testid="contact-accent-line"
@@ -117,7 +124,7 @@ export function Contact() {
             </p>
             <p className="text-(--paper)">Response time: usually within 24 hours.</p>
           </div>
-        </div>
+        </RevealOnScroll>
 
         <div className="lg:flex lg:justify-end">
           <div className="w-full max-w-md">

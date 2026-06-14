@@ -29,7 +29,10 @@ describe("About", () => {
       expect(within(stats).getByText(stat.label)).toBeInTheDocument();
     }
 
-    expect(screen.getByLabelText("Portrait placeholder for Ilya")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Portrait of Ilya" })).toHaveAttribute(
+      "src",
+      expect.stringContaining("ilya-portrait.jpeg"),
+    );
 
     const philosophy = screen.getByLabelText("Design philosophy");
     expect(philosophy).toHaveTextContent("Good design does not fight for attention.");
