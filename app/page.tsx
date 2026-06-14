@@ -1,6 +1,8 @@
 import { Navigation } from "@/components/layout/navigation";
+import { Footer } from "@/components/layout/footer";
 import { About } from "@/components/sections/about";
 import { Capabilities } from "@/components/sections/capabilities";
+import { Contact } from "@/components/sections/contact";
 import { Hero } from "@/components/sections/hero";
 import { InterfaceLab } from "@/components/sections/interface-lab";
 import { Process } from "@/components/sections/process";
@@ -19,7 +21,9 @@ export default function Home() {
         <InterfaceLab />
         <Services />
         <About />
+        <Contact />
       </main>
+      <Footer />
     </>
   );
 }

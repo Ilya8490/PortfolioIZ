@@ -573,38 +573,117 @@ Stop after Phase 6.
 
 Goal:
 
-Create a strong final conversion section.
+Create a strong closing section that converts both freelance clients and hiring managers,
+plus a minimal but legally complete footer.
 
 Contact CTA:
+
+Layout:
+
+- full-width section
+- two-column on desktop: left column headline and body, right column dual CTA and friction reducer
+- single column on mobile
 
 Headline:
 
 ```text
-Have a project in mind?
-Let's build something clear, fast and memorable.
+Open to the right opportunity.
+Freelance projects or full-time roles — let's talk.
 ```
 
 Supporting text:
 
 ```text
-Send a message if you need a business website, landing page, redesign, or frontend support.
+Whether you have a clear brief or just an early idea,
+I am happy to have an honest conversation about what you need
+and whether I am the right person to help.
+
+Response time: usually within 24 hours.
 ```
 
-CTA:
+Dual CTA:
 
 ```text
-Get In Touch →
+[  Send a Message →  ]      [ View LinkedIn ↗ ]
 ```
+
+Direct email line:
+
+```text
+or reach me directly at hello@ilyazub.dev
+```
+
+Visual treatment:
+
+- section background: `--card`
+- left border accent: full-height `2px` vertical line in `--lime`
+- no large decorative elements, no background noise increase, no abstract shapes
+- right CTA column vertically centered on desktop
+
+Animation:
+
+- headline word-by-word fade-up on scroll entry
+- buttons fade and scale from `0.97` to `1`, staggered `150ms`
+- left border line draws down on entry over `0.6s`
+- no hover gimmicks
 
 Footer:
 
-- logo
-- nav links
-- LinkedIn
-- GitHub
-- Email
-- copyright
-- impressum
+Row 1:
+
+```text
+Left:    IL_
+Center:  Work · Process · Lab · About · Impressum
+Right:   LinkedIn · GitHub · Email
+```
+
+Footer nav is not the full main nav. Include only:
+
+- Work
+- Process
+- Lab
+- About
+- Impressum
+
+Row 2:
+
+```text
+© [dynamic year] Ilya. All rights reserved.
+```
+
+Use:
+
+```tsx
+<span>{new Date().getFullYear()}</span>
+```
+
+Back to top:
+
+```text
+↑ Back to top
+```
+
+Footer visual treatment:
+
+- background: `#07070B`
+- top border: `1px solid var(--muted)`
+- no large graphics, no repeating patterns
+- generous vertical padding: `80px` top, `40px` bottom
+- no footer animation
+
+Impressum page:
+
+Create `/app/impressum/page.tsx` with clearly marked placeholders:
+
+```tsx
+{/* REQUIRED LEGAL CONTENT - must be completed before going live */}
+{/* German DDG provider information rules may require: full name, address, contact email, tax ID if applicable */}
+```
+
+LEGAL NOTE: German website provider-information duties are now commonly associated
+with the Digitale-Dienste-Gesetz (DDG), which replaced the former Telemediengesetz
+(TMG) in May 2024. Do not launch without completing this page with real legal
+information.
 
 Stop after Phase 9.
 

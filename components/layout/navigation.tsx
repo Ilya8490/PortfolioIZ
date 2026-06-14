@@ -67,13 +67,13 @@ export function Navigation() {
         >
           <span
             className={`h-px w-5 bg-(--paper) transition-transform ${
-              isMenuOpen ? "translate-y-[3px] rotate-45" : ""
+              isMenuOpen ? "translate-y-0.75 rotate-45" : ""
             }`}
             aria-hidden="true"
           />
           <span
             className={`h-px w-5 bg-(--paper) transition-transform ${
-              isMenuOpen ? "-translate-y-[4px] -rotate-45" : ""
+              isMenuOpen ? "-translate-y-1 -rotate-45" : ""
             }`}
             aria-hidden="true"
           />
