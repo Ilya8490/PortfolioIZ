@@ -41,8 +41,19 @@ describe("SelectedWork", () => {
         name: /Open Catering Ice/i,
       }),
     ).toHaveAttribute("href", "https://catericecream.vercel.app");
+    expect(
+      within(cateringIce as HTMLElement).getByRole("img", {
+        name: "Catering Ice desktop website screenshot",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("icecream-desktop.webp"));
+    expect(
+      within(cateringIce as HTMLElement).getByRole("img", {
+        name: "Catering Ice mobile website screenshot",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("icecream-mobile.webp"));
 
     expect(screen.getAllByText("Placeholder")).toHaveLength(3);
+    expect(screen.getAllByText("Mockup Placeholder")).toHaveLength(3);
 
     for (const number of ["01", "02", "03", "04"]) {
       expect(screen.getByText(number)).toBeInTheDocument();

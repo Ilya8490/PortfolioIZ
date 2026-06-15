@@ -141,7 +141,7 @@ export function SelectedWork() {
                   <p className="text-mono-label text-xs text-(--fog)">
                     {project.category}
                   </p>
-                  <h3 className="text-display mt-4 text-4xl leading-none text-(--paper) md:text-5xl">
+                  <h3 className="text-display mt-4 text-4xl leading-[1] text-(--paper) md:text-5xl">
                     {project.title}
                   </h3>
                   <p className="mt-5 max-w-2xl text-sm leading-7 text-(--fog) md:text-base">
