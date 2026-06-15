@@ -17,8 +17,8 @@ describe("SelectedWork", () => {
     const projectNames = [
       "Catering Ice",
       "Personal News Feed",
-      "QuitQuest",
-      "WordPress Business Website",
+      "Weather Dashboard",
+      "Business Website",
     ];
 
     for (const title of projectNames) {
@@ -68,8 +68,31 @@ describe("SelectedWork", () => {
       }),
     ).toHaveAttribute("src", expect.stringContaining("news-mobile.webp"));
 
-    expect(screen.getAllByText("Placeholder")).toHaveLength(3);
-    expect(screen.getAllByText("Mockup Placeholder")).toHaveLength(2);
+    const weatherDashboard = screen
+      .getByRole("heading", { name: "Weather Dashboard" })
+      .closest("article");
+
+    expect(weatherDashboard).not.toBeNull();
+    expect(
+      within(weatherDashboard as HTMLElement).getByRole("img", {
+        name: "Weather Dashboard desktop app screenshot",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("weather.webp"));
+
+    const businessWebsite = screen
+      .getByRole("heading", { name: "Business Website" })
+      .closest("article");
+
+    expect(businessWebsite).not.toBeNull();
+    expect(
+      within(businessWebsite as HTMLElement).getByRole("img", {
+        name: "Business Website desktop website screenshot",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("architect.webp"));
+
+    expect(screen.getAllByText("Verified")).toHaveLength(4);
+    expect(screen.queryByText("Placeholder")).not.toBeInTheDocument();
+    expect(screen.queryByText("Mockup Placeholder")).not.toBeInTheDocument();
 
     for (const number of ["01", "02", "03", "04"]) {
       expect(screen.getByText(number)).toBeInTheDocument();

@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigationItems } from "@/content/navigation";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const updateScrolledState = () => {
@@ -18,6 +20,56 @@ export function Navigation() {
 
     return () => window.removeEventListener("scroll", updateScrolledState);
   }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+
+    const firstMenuLink = mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a");
+    firstMenuLink?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusableItems = Array.from(
+        mobileMenuRef.current?.querySelectorAll<HTMLElement>("a, button") ?? [],
+      );
+
+      if (focusableItems.length === 0) {
+        return;
+      }
+
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems[focusableItems.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
+        firstItem.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -58,6 +110,7 @@ export function Navigation() {
         </Link>
 
         <button
+          ref={menuButtonRef}
           type="button"
           aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isMenuOpen}
@@ -81,8 +134,10 @@ export function Navigation() {
       </nav>
 
       {isMenuOpen ? (
-        <div
+        <nav
           id="mobile-navigation"
+          ref={mobileMenuRef}
+          aria-label="Mobile navigation"
           className="border-t border-(--line) bg-[rgba(10,10,15,0.96)] px-4 py-5 backdrop-blur-xl md:hidden"
         >
           <div className="flex flex-col gap-4">
@@ -90,14 +145,14 @@ export function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-mono-label py-2 text-sm text-(--paper)"
+                className="text-mono-label flex min-h-11 items-center py-2 text-sm text-(--paper)"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
           </div>
-        </div>
+        </nav>
       ) : null}
     </header>
   );

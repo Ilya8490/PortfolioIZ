@@ -133,7 +133,8 @@ export function Contact() {
               <a
                 data-contact-action
                 href={`mailto:${contactContent.email}`}
-                className="inline-flex min-h-12 items-center justify-center border border-(--lime) bg-(--lime) px-5 text-sm font-semibold text-(--ink) transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--lime)"
+                className="inline-flex min-h-12 items-center justify-center border border-(--lime) bg-(--lime) px-5 text-sm font-semibold text-[#111111] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--lime)"
+                style={{ color: "#111111" }}
               >
                 Send a Message -&gt;
               </a>

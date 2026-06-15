@@ -13,7 +13,6 @@ describe("Footer", () => {
     for (const [label, href] of [
       ["Work", "#work"],
       ["Process", "#process"],
-      ["Lab", "#lab"],
       ["About", "#about"],
       ["Impressum", "/impressum"],
     ]) {
@@ -22,6 +21,7 @@ describe("Footer", () => {
         href,
       );
     }
+    expect(within(footerNav).queryByRole("link", { name: "Lab" })).not.toBeInTheDocument();
     expect(within(footerNav).queryByRole("link", { name: "Services" })).not.toBeInTheDocument();
 
     expect(screen.getByRole("link", { name: "LinkedIn" })).toHaveAttribute(

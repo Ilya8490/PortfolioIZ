@@ -4,6 +4,13 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Impressum",
   description: "Legal notice placeholders for Ilya's portfolio website.",
+  alternates: {
+    canonical: "/impressum",
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function ImpressumPage() {

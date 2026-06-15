@@ -22,12 +22,37 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ilyazub.dev"),
   title: {
-    default: "Ilya | Frontend Developer & UX/UI Designer",
+    default: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
     template: "%s | Ilya",
   },
   description:
-    "Berlin-based frontend developer and UX/UI designer building fast, clear, conversion-focused websites for modern businesses.",
+    "Berlin frontend developer and UX/UI designer building fast, accessible websites, clear product interfaces, and SEO-ready React experiences for modern teams.",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+    description:
+      "Berlin frontend developer and UX/UI designer building fast, accessible websites, clear product interfaces, and SEO-ready React experiences for modern teams.",
+    url: "/",
+    siteName: "Ilya Portfolio",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+    description:
+      "Berlin frontend developer and UX/UI designer building fast, accessible websites, clear product interfaces, and SEO-ready React experiences for modern teams.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({

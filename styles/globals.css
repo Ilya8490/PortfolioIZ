@@ -7,6 +7,7 @@
   --card: #14141c;
   --muted: #3d3d50;
   --fog: #6b6b80;
+  --fog-readable: #8a8aa0;
   --line: rgba(240, 240, 232, 0.12);
   --container: 1180px;
 }
@@ -52,7 +53,33 @@ select {
 
 :focus-visible {
   outline: 2px solid var(--lime);
-  outline-offset: 4px;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(calc(-100% - 2rem));
+  background: var(--lime);
+  color: var(--ink);
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.text-\(--fog\) {
+  color: var(--fog-readable);
 }
 
 .site-noise {
@@ -98,6 +125,39 @@ select {
   transform: none;
 }
 
+.capability-card {
+  position: relative;
+  color: var(--paper);
+  border: 1px solid transparent;
+  transition:
+    background-color 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease,
+    color 280ms ease;
+}
+
+.capability-card:is(:hover, :focus, :focus-within) {
+  color: #050505;
+  background: var(--lime);
+  border-color: rgba(232, 255, 71, 0.72);
+  box-shadow: 0 18px 48px rgba(232, 255, 71, 0.12);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .capability-card {
+    transition:
+      background-color 280ms ease,
+      border-color 280ms ease,
+      box-shadow 280ms ease,
+      color 280ms ease,
+      transform 280ms ease;
+  }
+
+  .capability-card:is(:hover, :focus, :focus-within) {
+    transform: translateY(-4px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -106,5 +166,11 @@ select {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .site-noise {
+    display: none;
   }
 }

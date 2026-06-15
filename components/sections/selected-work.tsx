@@ -21,6 +21,11 @@ interface DeviceProjectMockupProps {
   mobileSrc: string;
 }
 
+interface MacBookProjectMockupProps {
+  desktopAlt: string;
+  desktopSrc: string;
+}
+
 function DeviceProjectMockup({
   desktopAlt,
   desktopSrc,
@@ -28,7 +33,7 @@ function DeviceProjectMockup({
   mobileSrc,
 }: DeviceProjectMockupProps) {
   return (
-    <div className="relative h-full min-h-72 overflow-hidden rounded-[6px] border border-(--line) bg-(--card) p-5 transition-colors duration-300 group-hover:border-[rgba(232,255,71,0.42)] md:min-h-96 md:p-7">
+    <div className="relative h-full min-h-72 overflow-hidden rounded-md border border-(--line) bg-(--card) p-5 transition-colors duration-300 group-hover:border-[rgba(232,255,71,0.42)] md:min-h-96 md:p-7">
       <div
         className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(232,255,71,0.18),transparent_68%)] opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100"
         aria-hidden="true"
@@ -40,8 +45,8 @@ function DeviceProjectMockup({
 
       <div className="relative flex min-h-64 items-center justify-center transition-transform duration-500 group-hover:-translate-y-1 md:min-h-80">
         <div className="relative w-[88%] max-w-md transition-transform duration-500 group-hover:scale-[1.03]">
-          <div className="rounded-t-[6px] border border-(--line) bg-[#08080c] p-2">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-(--ink)">
+          <div className="rounded-t-md border border-(--line) bg-[#08080c] p-2">
+            <div className="relative aspect-16/10 overflow-hidden rounded-sm bg-(--ink)">
               <Image
                 src={desktopSrc}
                 alt={desktopAlt}
@@ -51,14 +56,14 @@ function DeviceProjectMockup({
               />
             </div>
           </div>
-          <div className="mx-auto h-3 w-[78%] rounded-b-[6px] border-x border-b border-(--line) bg-[linear-gradient(180deg,rgba(240,240,232,0.18),rgba(20,20,28,0.94))]" />
-          <div className="mx-auto h-1.5 w-[46%] rounded-b-[6px] bg-[rgba(240,240,232,0.18)]" />
+          <div className="mx-auto h-3 w-[78%] rounded-b-md border-x border-b border-(--line) bg-[linear-gradient(180deg,rgba(240,240,232,0.18),rgba(20,20,28,0.94))]" />
+          <div className="mx-auto h-1.5 w-[46%] rounded-b-md bg-[rgba(240,240,232,0.18)]" />
         </div>
 
         <div className="absolute bottom-1 right-2 w-[28%] min-w-20 max-w-28 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.03] md:bottom-2 md:right-5 md:w-[24%]">
-          <div className="rounded-[6px] border border-[rgba(240,240,232,0.24)] bg-[#07070b] p-1.5">
+          <div className="rounded-md border border-[rgba(240,240,232,0.24)] bg-[#07070b] p-1.5">
             <div className="mx-auto mb-1 h-1 w-7 rounded-full bg-[rgba(240,240,232,0.2)]" />
-            <div className="relative aspect-[9/19] overflow-hidden rounded-[4px] bg-(--ink)">
+            <div className="relative aspect-9/19 overflow-hidden rounded-sm bg-(--ink)">
               <Image
                 src={mobileSrc}
                 alt={mobileAlt}
@@ -68,6 +73,39 @@ function DeviceProjectMockup({
               />
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MacBookProjectMockup({ desktopAlt, desktopSrc }: MacBookProjectMockupProps) {
+  return (
+    <div className="relative h-full min-h-72 overflow-hidden rounded-md border border-(--line) bg-(--card) p-5 transition-colors duration-300 group-hover:border-[rgba(232,255,71,0.42)] md:min-h-96 md:p-7">
+      <div
+        className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(232,255,71,0.18),transparent_68%)] opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(240,240,232,0.08),transparent_45%)]"
+        aria-hidden="true"
+      />
+
+      <div className="relative flex min-h-64 items-center justify-center transition-transform duration-500 group-hover:-translate-y-1 md:min-h-80">
+        <div className="relative w-[94%] max-w-lg transition-transform duration-500 group-hover:scale-[1.03]">
+          <div className="rounded-t-md border border-(--line) bg-[#08080c] p-2.5">
+            <div className="relative aspect-16/10 overflow-hidden rounded-sm bg-(--ink)">
+              <Image
+                src={desktopSrc}
+                alt={desktopAlt}
+                fill
+                sizes="(min-width: 1024px) 36vw, calc(100vw - 64px)"
+                className="object-cover object-top"
+              />
+            </div>
+          </div>
+          <div className="mx-auto h-3.5 w-[82%] rounded-b-md border-x border-b border-(--line) bg-[linear-gradient(180deg,rgba(240,240,232,0.18),rgba(20,20,28,0.94))]" />
+          <div className="mx-auto h-1.5 w-[48%] rounded-b-md bg-[rgba(240,240,232,0.18)]" />
         </div>
       </div>
     </div>
@@ -92,6 +130,24 @@ function NewsProjectMockup() {
       desktopSrc="/images/projects/news-desktop.webp"
       mobileAlt="Personal News Feed mobile app screenshot"
       mobileSrc="/images/projects/news-mobile.webp"
+    />
+  );
+}
+
+function WeatherProjectMockup() {
+  return (
+    <MacBookProjectMockup
+      desktopAlt="Weather Dashboard desktop app screenshot"
+      desktopSrc="/images/projects/weather.webp"
+    />
+  );
+}
+
+function BusinessWebsiteProjectMockup() {
+  return (
+    <MacBookProjectMockup
+      desktopAlt="Business Website desktop website screenshot"
+      desktopSrc="/images/projects/architect.webp"
     />
   );
 }
@@ -147,6 +203,14 @@ function ProjectVisual({ project, index }: { project: Project; index: number }) 
     return <NewsProjectMockup />;
   }
 
+  if (project.title === "Weather Dashboard") {
+    return <WeatherProjectMockup />;
+  }
+
+  if (project.title === "Business Website") {
+    return <BusinessWebsiteProjectMockup />;
+  }
+
   return <ProjectPlaceholderVisual project={project} index={index} />;
 }
 
@@ -167,6 +231,8 @@ export function SelectedWork() {
 
       matchMedia = gsap.matchMedia();
       matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        const useVerticalReveal = window.matchMedia("(max-width: 767px)").matches;
+
         rows.forEach((row) => {
           const content = row.querySelector("[data-work-content]");
           const visual = row.querySelector("[data-work-visual]");
@@ -185,7 +251,8 @@ export function SelectedWork() {
               content,
               {
                 opacity: 0,
-                x: -20,
+                x: useVerticalReveal ? 0 : -20,
+                y: useVerticalReveal ? 16 : 0,
                 duration: ANIM.duration.default,
                 ease: ANIM.ease.enter,
               },
@@ -195,7 +262,8 @@ export function SelectedWork() {
               visual,
               {
                 opacity: 0,
-                x: 20,
+                x: useVerticalReveal ? 0 : 20,
+                y: useVerticalReveal ? 16 : 0,
                 duration: ANIM.duration.default,
                 ease: ANIM.ease.enter,
               },
@@ -279,7 +347,7 @@ export function SelectedWork() {
                   <p className="text-mono-label text-xs text-(--fog)">
                     {project.category}
                   </p>
-                  <h3 className="text-display mt-4 text-4xl leading-[1] text-(--paper) md:text-5xl">
+                  <h3 className="text-display mt-4 text-4xl leading-none text-(--paper) md:text-5xl">
                     {project.title}
                   </h3>
                   <p className="mt-5 max-w-2xl text-sm leading-7 text-(--fog) md:text-base">

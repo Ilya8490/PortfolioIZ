@@ -1,9 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import React from "react";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { Navigation } from "@/components/layout/navigation";
 
 describe("Navigation", () => {
+  afterEach(() => {
+    document.body.style.overflow = "";
+  });
+
   it("renders the portfolio logo, primary links, and contact CTA", () => {
     render(<Navigation />);
 
@@ -13,7 +17,7 @@ describe("Navigation", () => {
       "href",
       "#process",
     );
-    expect(screen.getByRole("link", { name: "Lab" })).toHaveAttribute("href", "#lab");
+    expect(screen.queryByRole("link", { name: "Lab" })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Services" })).toHaveAttribute(
       "href",
       "#services",
@@ -36,5 +40,50 @@ describe("Navigation", () => {
       "aria-expanded",
       "false",
     );
+  });
+
+  it("moves focus into the mobile menu and locks page scroll when opened", async () => {
+    render(<Navigation />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Open navigation menu" }));
+
+    expect(screen.getByRole("button", { name: "Close navigation menu" })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    expect(document.body).toHaveStyle({ overflow: "hidden" });
+
+    const mobileNavigation = screen.getByRole("navigation", {
+      name: "Mobile navigation",
+    });
+
+    await waitFor(() => {
+      expect(within(mobileNavigation).getByRole("link", { name: "Work" })).toHaveFocus();
+    });
+  });
+
+  it("closes the mobile menu with Escape and returns focus to the trigger", async () => {
+    render(<Navigation />);
+
+    const trigger = screen.getByRole("button", { name: "Open navigation menu" });
+    fireEvent.click(trigger);
+
+    const mobileNavigation = screen.getByRole("navigation", {
+      name: "Mobile navigation",
+    });
+
+    await waitFor(() => {
+      expect(within(mobileNavigation).getByRole("link", { name: "Work" })).toHaveFocus();
+    });
+
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Open navigation menu" })).toHaveFocus();
+    });
+    expect(
+      screen.queryByRole("navigation", { name: "Mobile navigation" }),
+    ).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("");
   });
 });

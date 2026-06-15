@@ -18,7 +18,7 @@ const variantClassName: Record<ButtonVariant, string> = {
 
 const variantStyle: Record<ButtonVariant, CSSProperties | undefined> = {
   primary: {
-    color: "var(--ink)",
+    color: "#111111",
   },
   secondary: undefined,
 };

@@ -7,7 +7,6 @@ export const contactContent = {
 export const footerNavItems = [
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
-  { label: "Lab", href: "#lab" },
   { label: "About", href: "#about" },
   { label: "Impressum", href: "/impressum" },
 ] as const;
