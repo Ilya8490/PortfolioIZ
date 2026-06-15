@@ -14,9 +14,9 @@ export const projects: Project[] = [
     title: "Personal News Feed",
     category: "Web App",
     description:
-      "Editable placeholder until a live URL, repository, or README is provided.",
-    technologies: ["React", "API"],
-    status: "placeholder",
+      "Personalized news platform that turns broad headlines into a feed shaped by each reader’s interests, saved stories, and onboarding preferences. It combines Next.js App Router, Prisma, PostgreSQL, and NextAuth to handle real user accounts, persistent article saving, and server-rendered personalization.",
+    technologies: ["React", "API", "Prisma", "PostgreSQL"],
+    status: "verified",
   },
   {
     title: "QuitQuest",

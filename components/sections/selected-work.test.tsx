@@ -52,8 +52,24 @@ describe("SelectedWork", () => {
       }),
     ).toHaveAttribute("src", expect.stringContaining("icecream-mobile.webp"));
 
+    const personalNewsFeed = screen
+      .getByRole("heading", { name: "Personal News Feed" })
+      .closest("article");
+
+    expect(personalNewsFeed).not.toBeNull();
+    expect(
+      within(personalNewsFeed as HTMLElement).getByRole("img", {
+        name: "Personal News Feed desktop app screenshot",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("news-desktop.webp"));
+    expect(
+      within(personalNewsFeed as HTMLElement).getByRole("img", {
+        name: "Personal News Feed mobile app screenshot",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("news-mobile.webp"));
+
     expect(screen.getAllByText("Placeholder")).toHaveLength(3);
-    expect(screen.getAllByText("Mockup Placeholder")).toHaveLength(3);
+    expect(screen.getAllByText("Mockup Placeholder")).toHaveLength(2);
 
     for (const number of ["01", "02", "03", "04"]) {
       expect(screen.getByText(number)).toBeInTheDocument();
