@@ -160,7 +160,7 @@ export function About() {
                 technical implementation without handing off between disciplines.
               </p>
               <p className="text-(--paper)">
-                {/* EDITABLE: Update availability status as needed */}
+                {/* PRE-LAUNCH: update availability status before public launch */}
                 Currently open to full-time roles and select freelance projects.
               </p>
             </div>

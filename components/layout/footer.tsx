@@ -3,6 +3,7 @@ import { contactContent, footerNavItems } from "@/content/contact";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const hasContactEmail = Boolean(contactContent.email);
 
   return (
     <footer className="border-t border-(--muted) bg-[#07070B] pb-10 pt-20">
@@ -49,13 +50,15 @@ export function Footer() {
             >
               <span aria-hidden="true">gh</span>
             </a>
-            <a
-              href={`mailto:${contactContent.email}`}
-              aria-label="Email"
-              className="text-mono-label flex h-10 w-10 items-center justify-center border border-(--line) text-[10px] text-(--paper) transition-colors hover:border-(--lime) hover:text-(--lime)"
-            >
-              <span aria-hidden="true">@</span>
-            </a>
+            {hasContactEmail && (
+              <a
+                href={`mailto:${contactContent.email}`}
+                aria-label="Email"
+                className="text-mono-label flex h-10 w-10 items-center justify-center border border-(--line) text-[10px] text-(--paper) transition-colors hover:border-(--lime) hover:text-(--lime)"
+              >
+                <span aria-hidden="true">@</span>
+              </a>
+            )}
           </div>
         </div>
 

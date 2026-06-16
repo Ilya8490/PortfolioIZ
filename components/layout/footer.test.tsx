@@ -1,10 +1,17 @@
 import { render, screen, within } from "@testing-library/react";
 import React from "react";
-import { describe, expect, it } from "vitest";
-import { Footer } from "@/components/layout/footer";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 describe("Footer", () => {
-  it("renders the curated footer navigation, social links, dynamic year, and top link", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("renders the curated footer navigation, social links, dynamic year, and top link", async () => {
+    vi.stubEnv("NEXT_PUBLIC_CONTACT_EMAIL", "work@example.com");
+    vi.resetModules();
+    const { Footer } = await import("@/components/layout/footer");
+
     render(<Footer />);
 
     expect(screen.getByRole("link", { name: "IL_" })).toHaveAttribute("href", "#top");
@@ -34,12 +41,23 @@ describe("Footer", () => {
     );
     expect(screen.getByRole("link", { name: "Email" })).toHaveAttribute(
       "href",
-      expect.stringContaining("mailto:"),
+      "mailto:work@example.com",
     );
     expect(screen.getByText(`© ${new Date().getFullYear()} Ilya. All rights reserved.`));
     expect(screen.getByRole("link", { name: "↑ Back to top" })).toHaveAttribute(
       "href",
       "#top",
     );
+  });
+
+  it("does not render a fake email link when no contact email is configured", async () => {
+    vi.stubEnv("NEXT_PUBLIC_CONTACT_EMAIL", "");
+    vi.resetModules();
+    const { Footer } = await import("@/components/layout/footer");
+
+    render(<Footer />);
+
+    expect(screen.queryByRole("link", { name: "Email" })).not.toBeInTheDocument();
+    expect(screen.queryByText(/pending/i)).not.toBeInTheDocument();
   });
 });

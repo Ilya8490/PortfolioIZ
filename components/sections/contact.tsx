@@ -9,6 +9,19 @@ import { gsap } from "@/lib/gsap";
 const headline =
   "Open to the right opportunity. Freelance projects or full-time roles - let's talk.";
 
+function ContactEmailText({ email }: { email: string }) {
+  const [localPart, domain = ""] = email.split("@");
+
+  return (
+    <>
+      <span>{localPart}</span>
+      <span aria-hidden="true">@</span>
+      <span className="sr-only">@</span>
+      <span>{domain}</span>
+    </>
+  );
+}
+
 function SplitHeadline({ text }: { text: string }) {
   return (
     <>
@@ -30,6 +43,7 @@ function SplitHeadline({ text }: { text: string }) {
 
 export function Contact() {
   const rootRef = useRef<HTMLElement>(null);
+  const hasContactEmail = Boolean(contactContent.email);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -113,7 +127,7 @@ export function Contact() {
           />
           <p className="text-mono-label mb-5 text-xs text-(--lime)">Contact</p>
           <h2 className="text-display max-w-4xl text-4xl leading-[1.02] text-(--paper) md:text-6xl">
-            {/* EDITABLE: Update availability status and openness to roles as needed */}
+            {/* PRE-LAUNCH: update availability status before public launch */}
             <SplitHeadline text={headline} />
           </h2>
           <div className="mt-8 max-w-2xl space-y-5 text-sm leading-7 text-(--fog) md:text-base md:leading-8">
@@ -129,16 +143,27 @@ export function Contact() {
         <div className="lg:flex lg:justify-end">
           <div className="w-full max-w-md">
             <div className="flex flex-col gap-3 sm:flex-row">
-              {/* EDITABLE: Link primary CTA to contact form or mailto:your@email.com */}
-              <a
-                data-contact-action
-                href={`mailto:${contactContent.email}`}
-                className="inline-flex min-h-12 items-center justify-center border border-(--lime) bg-(--lime) px-5 text-sm font-semibold text-[#111111] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--lime)"
-                style={{ color: "#111111" }}
-              >
-                Send a Message -&gt;
-              </a>
-              {/* EDITABLE: Replace LinkedIn URL with real profile */}
+              {hasContactEmail ? (
+                <a
+                  data-contact-action
+                  href={`mailto:${contactContent.email}`}
+                  className="inline-flex min-h-12 items-center justify-center border border-(--lime) bg-(--lime) px-5 text-sm font-semibold text-[#111111] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--lime)"
+                  style={{ color: "#111111" }}
+                >
+                  Send a Message -&gt;
+                </a>
+              ) : (
+                <a
+                  data-contact-action
+                  href={contactContent.linkedInUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-12 items-center justify-center border border-(--lime) bg-(--lime) px-5 text-sm font-semibold text-[#111111] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--lime)"
+                  style={{ color: "#111111" }}
+                >
+                  Contact via LinkedIn ↗
+                </a>
+              )}
               <a
                 data-contact-action
                 href={contactContent.linkedInUrl}
@@ -149,20 +174,35 @@ export function Contact() {
                 View LinkedIn ↗
               </a>
             </div>
-            {/* EDITABLE: Add CV download link once CV file is ready */}
+            {/* POST-LAUNCH: add CV download link when a final CV file is ready */}
             <p className="mt-6 text-sm leading-6 text-(--fog)">
-              or reach me directly at{" "}
-              <a
-                data-contact-action
-                href={`mailto:${contactContent.email}`}
-                aria-label={`or reach me directly at ${contactContent.email}`}
-                className="text-(--paper) transition-colors hover:text-(--lime)"
-              >
-                <span>hello</span>
-                <span aria-hidden="true">@</span>
-                <span className="sr-only">@</span>
-                <span>ilyazub.dev</span>
-              </a>
+              {hasContactEmail ? (
+                <>
+                  or reach me directly at{" "}
+                  <a
+                    data-contact-action
+                    href={`mailto:${contactContent.email}`}
+                    aria-label={`or reach me directly at ${contactContent.email}`}
+                    className="text-(--paper) transition-colors hover:text-(--lime)"
+                  >
+                    <ContactEmailText email={contactContent.email as string} />
+                  </a>
+                </>
+              ) : (
+                <>
+                  The fastest way to reach me right now is{" "}
+                  <a
+                    data-contact-action
+                    href={contactContent.linkedInUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-(--paper) transition-colors hover:text-(--lime)"
+                  >
+                    LinkedIn
+                  </a>
+                  .
+                </>
+              )}
             </p>
           </div>
         </div>

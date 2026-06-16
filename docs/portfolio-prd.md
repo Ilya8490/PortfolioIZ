@@ -610,7 +610,7 @@ Dual CTA:
 Direct email line:
 
 ```text
-or reach me directly at hello@ilyazub.dev
+or reach me directly at NEXT_PUBLIC_CONTACT_EMAIL
 ```
 
 Visual treatment:

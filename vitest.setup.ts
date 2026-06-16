@@ -5,6 +5,14 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const animationFrameHandles = new Set<ReturnType<typeof setTimeout>>();
+const nativeSetInterval = globalThis.setInterval.bind(globalThis);
+const nativeClearInterval = globalThis.clearInterval.bind(globalThis);
+type IntervalHandle = number | ReturnType<typeof setTimeout>;
+const intervalHandles = new Set<IntervalHandle>();
+
+function clearTrackedInterval(handle: IntervalHandle) {
+  nativeClearInterval(handle as Parameters<typeof nativeClearInterval>[0]);
+}
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -51,6 +59,24 @@ Object.defineProperty(globalThis, "cancelAnimationFrame", {
   value: window.cancelAnimationFrame,
 });
 
+Object.defineProperty(globalThis, "setInterval", {
+  writable: true,
+  value: (callback: TimerHandler, delay?: number, ...args: unknown[]) => {
+    const handle = nativeSetInterval(callback, delay, ...args);
+
+    intervalHandles.add(handle);
+    return handle;
+  },
+});
+
+Object.defineProperty(globalThis, "clearInterval", {
+  writable: true,
+  value: (handle: ReturnType<typeof nativeSetInterval>) => {
+    intervalHandles.delete(handle);
+    clearTrackedInterval(handle);
+  },
+});
+
 afterEach(() => {
   cleanup();
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -58,4 +84,6 @@ afterEach(() => {
   gsap.ticker.sleep();
   animationFrameHandles.forEach((handle) => globalThis.clearTimeout(handle));
   animationFrameHandles.clear();
+  intervalHandles.forEach(clearTrackedInterval);
+  intervalHandles.clear();
 });

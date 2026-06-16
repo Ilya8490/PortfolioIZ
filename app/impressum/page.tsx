@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Legal notice placeholders for Ilya's portfolio website.",
+  description: "Draft legal notice page for Ilya's portfolio website.",
   alternates: {
     canonical: "/impressum",
   },
@@ -29,8 +29,7 @@ export default function ImpressumPage() {
         </h1>
 
         <section className="mt-12 border border-(--line) bg-(--card) p-6 md:p-8">
-          {/* REQUIRED LEGAL CONTENT - must be completed before going live */}
-          {/* German DDG provider information rules may require full name, address, contact email, tax ID if applicable */}
+          {/* BLOCKER: resolve before public launch with current German Anbieterkennzeichnung / DDG review */}
           <p className="text-mono-label text-xs text-(--lime)">
             REQUIRED LEGAL CONTENT - must be completed before going live
           </p>
@@ -45,11 +44,9 @@ export default function ImpressumPage() {
 
         <section className="mt-8 border border-(--line) p-6 md:p-8">
           <p className="text-sm leading-7 text-(--fog)">
-            Current note: German website provider-information duties are now commonly
-            associated with the Digitale-Dienste-Gesetz (DDG), which replaced the
-            former Telemediengesetz (TMG) in May 2024. Do not launch without
-            completing this page with real legal information. This is not optional for
-            a commercial or business portfolio operated from Germany.
+            Current note: complete this page with real legal information and a manual
+            review against current German Anbieterkennzeichnung / DDG requirements
+            before enabling public indexing or promoting the site.
           </p>
         </section>
       </div>

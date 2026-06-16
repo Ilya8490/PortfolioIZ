@@ -1,12 +1,9 @@
 import type { AboutStat } from "@/types";
 
-// EDITABLE: Replace with verified project count.
-const projectCount = "20+";
-
 export const aboutStats: AboutStat[] = [
   {
-    value: projectCount,
-    label: "Projects shipped",
+    value: "Verified",
+    label: "Project links",
   },
   {
     value: "Berlin",

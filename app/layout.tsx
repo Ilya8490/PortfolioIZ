@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
+import { robotsMetadata, siteUrl } from "@/lib/site-config";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -22,7 +23,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ilyazub.dev"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
     template: "%s | Ilya",
@@ -32,15 +33,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: robotsMetadata,
   openGraph: {
     title: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
     description:
       "Berlin frontend developer and UX/UI designer building fast, accessible websites, clear product interfaces, and SEO-ready React experiences for modern teams.",
-    url: "/",
+    url: siteUrl,
     siteName: "Ilya Portfolio",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     locale: "en_US",

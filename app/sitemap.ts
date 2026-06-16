@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://ilyazub.dev",
-      lastModified: new Date("2026-06-15"),
+      url: siteUrl,
+      lastModified: new Date("2026-06-16"),
     },
   ];
 }
