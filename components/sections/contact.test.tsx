@@ -52,11 +52,11 @@ describe("Contact", () => {
 
     expect(within(section).getByRole("link", { name: "Contact via LinkedIn ↗" })).toHaveAttribute(
       "href",
-      "https://www.linkedin.com/in/ilya-zubrytskyy/",
+      "https://www.linkedin.com/in/illia-zubr/",
     );
     expect(
       within(section).getByRole("link", { name: "LinkedIn" }),
-    ).toHaveAttribute("href", "https://www.linkedin.com/in/ilya-zubrytskyy/");
+    ).toHaveAttribute("href", "https://www.linkedin.com/in/illia-zubr/");
     expect(section).not.toHaveTextContent(/pending/i);
   });
 });

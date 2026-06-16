@@ -2,7 +2,7 @@ import { contactEmail } from "@/lib/site-config";
 
 export const contactContent = {
   email: contactEmail,
-  linkedInUrl: "https://www.linkedin.com/in/ilya-zubrytskyy/",
+  linkedInUrl: "https://www.linkedin.com/in/illia-zubr/",
   githubUrl: "https://github.com/Ilya8490",
 };
 
