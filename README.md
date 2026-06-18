@@ -100,7 +100,7 @@ Set these values in the Vercel dashboard:
 
 ```env
 NEXT_PUBLIC_SITE_URL=https://your-project.vercel.app
-NEXT_PUBLIC_CONTACT_EMAIL=hello@example.com
+NEXT_PUBLIC_CONTACT_EMAIL=zubrwebdev@gmail.com
 NEXT_PUBLIC_ALLOW_INDEXING=false
 ```
 
@@ -110,7 +110,7 @@ When the site is ready for public promotion:
 
 1. Configure the final domain in Vercel.
 2. Update `NEXT_PUBLIC_SITE_URL`.
-3. Activate and update `NEXT_PUBLIC_CONTACT_EMAIL`.
+3. Confirm `NEXT_PUBLIC_CONTACT_EMAIL`.
 4. Complete and review `/impressum`.
 5. Set `NEXT_PUBLIC_ALLOW_INDEXING=true`.
 6. Redeploy.
@@ -127,13 +127,12 @@ Tier 1 blockers before public indexing:
 
 - Ilya to provide: real `/impressum` legal content.
 - Ilya to provide: manual legal review of `/impressum`.
-- Ilya to provide: confirmed working contact method.
+- Ilya to verify: confirmed working contact method.
 - Ilya to provide: production domain and final `NEXT_PUBLIC_SITE_URL`.
 - Developer to verify: no visible fake or placeholder content on public indexed pages.
 
 Tier 2 items before promoting the site:
 
-- Ilya to provide: dedicated work email and Vercel `NEXT_PUBLIC_CONTACT_EMAIL`.
 - Ilya to confirm: current availability status.
 - Ilya to approve: project descriptions and selected work links.
 - Developer to implement: final OG image if the generated placeholder should be replaced.
