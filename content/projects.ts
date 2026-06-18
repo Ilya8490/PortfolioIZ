@@ -5,7 +5,7 @@ export const projects: Project[] = [
     title: "Catering Ice",
     category: "Business Website",
     description:
-      "Los Angeles ice cream catering site for weddings, private parties, and corporate events, with event packages, custom quote CTAs, and premium service positioning.",
+      "Los Angeles ice cream catering site for weddings, private parties, and corporate events, with event packages, custom quote CTAs, and polished event-focused positioning.",
     href: "https://catericecream.vercel.app",
     technologies: ["Next.js", "Responsive UI", "SEO Metadata"],
     status: "verified",

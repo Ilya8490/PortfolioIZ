@@ -11,16 +11,16 @@ describe("About", () => {
     expect(screen.getByText("About")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "Most websites look fine. Few of them actually work.",
+        name: "A growing developer profile shaped by real projects.",
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "I am a frontend developer and UX/UI designer based in Berlin, working with startups, agencies, and businesses across Germany and Europe.",
+        "I am a junior frontend / fullstack developer based in Berlin, building selected projects to practice modern web development, product thinking, and clean implementation.",
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Currently open to full-time roles and select freelance projects."),
+      screen.getByText("Open to junior developer roles, internships, and professional networking."),
     ).toBeInTheDocument();
 
     const stats = screen.getByLabelText("About stats");

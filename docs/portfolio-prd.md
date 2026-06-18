@@ -4,24 +4,24 @@
 
 You are a senior frontend developer, UI designer, and UX-focused creative developer.
 
-Build a premium personal portfolio website for **Ilya**, a Berlin-based frontend developer with UX/UI sensibility, e-commerce experience, WordPress experience, and modern React/Next.js skills.
+Build a premium personal portfolio website for **Ilya**, a Berlin-based junior frontend / fullstack developer with UX/UI sensibility, e-commerce experience, WordPress experience, and modern React/Next.js skills.
 
-The website should not look like a generic junior developer portfolio. It should feel like a sharp, technical, memorable portfolio for someone who understands design, frontend engineering, UX, performance, and client needs.
+The website should not look like a generic junior developer portfolio. It should feel like a sharp, technical, memorable portfolio for someone who understands design, frontend engineering, UX, performance, and practical product needs.
 
 ## Core Positioning
 
 Use this positioning:
 
-**Frontend Developer & UX/UI Designer**  
-**Building fast, clear, conversion-focused websites for modern businesses.**
+**Junior Frontend / Fullstack Developer**  
+**Building modern, responsive web applications and showcasing selected projects.**
 
 Avoid positioning Ilya as a pure Shopify specialist unless real Shopify project evidence exists in the codebase or project sources.
 
 ## Main Goal
 
-The website must make potential clients, agencies, or hiring managers think:
+The website must make recruiters, HR teams, and technical hiring managers think:
 
-> This person understands both design and code. I would trust him to build a professional website.
+> This person understands both design and code. I would want to review his projects for a junior developer role.
 
 ## Important Working Rule
 
@@ -143,8 +143,8 @@ Do not use fake metrics such as:
 
 - 34% conversion lift
 - 150k orders processed
-- 100% client satisfaction
-- 10+ happy clients
+- 100% satisfaction
+- 10+ happy partners
 
 unless these are provided and verifiable.
 
@@ -205,7 +205,7 @@ For every project, generate content from real available information.
 Do not invent:
 
 - business outcomes
-- client testimonials
+- recruiter testimonials
 - revenue results
 - conversion numbers
 - user numbers
@@ -226,7 +226,7 @@ Build the website with these main sections:
 4. Selected Work
 5. UX Process
 6. Interface Lab
-7. Services
+7. Technical Focus
 8. About
 9. Design Philosophy
 10. Contact CTA
@@ -278,7 +278,7 @@ Tasks:
    - Tag
    - SectionEyebrow
    - SectionHeader
-8. Add content files for projects, services, process steps, and navigation.
+8. Add content files for projects, technical focus, process steps, and navigation.
 
 Suggested structure:
 
@@ -293,7 +293,7 @@ Suggested structure:
   /animations
 /content
   projects.ts
-  services.ts
+  technical-focus.ts
   process.ts
   navigation.ts
 /lib
@@ -329,8 +329,8 @@ Requirements:
 
 - fixed top nav
 - logo: `IL_`
-- links: Work, Process, Lab, Services, About, Contact
-- right CTA: `Let's Talk →`
+- links: Work, Process, Lab, Technical Focus, About, Contact
+- right CTA: `Get in touch →`
 - desktop layout
 - mobile hamburger menu
 - accessible keyboard navigation
@@ -382,7 +382,7 @@ I design and build fast, responsive websites with clear user flows, polished int
 CTA:
 
 - View Work
-- Let's Talk
+- Get in touch
 
 Important:
 
@@ -573,8 +573,7 @@ Stop after Phase 6.
 
 Goal:
 
-Create a strong closing section that converts both freelance clients and hiring managers,
-plus a minimal but legally complete footer.
+Create a strong closing section for recruiters, HR teams, technical contacts, and professional networking, plus a minimal but legally complete footer.
 
 Contact CTA:
 
@@ -587,8 +586,7 @@ Layout:
 Headline:
 
 ```text
-Open to the right opportunity.
-Freelance projects or full-time roles — let's talk.
+Get in touch about junior developer roles, internships, or professional networking.
 ```
 
 Supporting text:

@@ -28,7 +28,7 @@ describe("site metadata", () => {
     const { metadata } = await loadLayoutMetadata();
 
     expect(metadata.title).toEqual({
-      default: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+      default: "Ilya | Junior Frontend / Fullstack Developer, Berlin",
       template: "%s | Ilya",
     });
     expect(metadata.description?.length).toBeGreaterThanOrEqual(150);
@@ -40,13 +40,13 @@ describe("site metadata", () => {
       follow: false,
     });
     expect(metadata.openGraph).toMatchObject({
-      title: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+      title: "Ilya | Junior Frontend / Fullstack Developer, Berlin",
       url: "https://portfolio-preview.vercel.app",
       images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     });
     expect(metadata.twitter).toMatchObject({
       card: "summary_large_image",
-      title: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+      title: "Ilya | Junior Frontend / Fullstack Developer, Berlin",
       images: ["/og-image.png"],
     });
   });

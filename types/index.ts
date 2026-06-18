@@ -14,7 +14,7 @@ export type Project = {
   status: ProjectStatus;
 };
 
-export type Service = {
+export type TechnicalFocusItem = {
   title: string;
   targetClient: string;
   description: string;

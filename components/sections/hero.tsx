@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
+import { contactContent } from "@/content/contact";
 import { heroContent } from "@/content/hero";
 import { ANIM, prefersReducedMotion } from "@/lib/animation";
 import { gsap } from "@/lib/gsap";
@@ -10,6 +11,9 @@ import { gsap } from "@/lib/gsap";
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
   const codeRef = useRef<HTMLDivElement>(null);
+  const contactHref = contactContent.email
+    ? `mailto:${contactContent.email}`
+    : heroContent.secondaryCta.href;
 
   useEffect(() => {
     const root = rootRef.current;
@@ -97,7 +101,7 @@ export function Hero() {
             <Button href={heroContent.primaryCta.href}>
               {heroContent.primaryCta.label}
             </Button>
-            <Button href={heroContent.secondaryCta.href} variant="secondary">
+            <Button href={contactHref} variant="secondary">
               {heroContent.secondaryCta.label} <span aria-hidden="true">→</span>
             </Button>
           </div>
@@ -122,14 +126,14 @@ export function Hero() {
           </div>
           <pre className="overflow-hidden text-sm leading-7 text-(--paper)">
             <code>{`const focus = [
-  "clear UX",
-  "fast pages",
-  "clean React",
-  "SEO basics"
+  "React",
+  "TypeScript",
+  "Next.js",
+  "fullstack basics"
 ];
 
-build({
-  intent: "convert",
+portfolio({
+  goal: "junior role",
   location: "Berlin"
 });`}</code>
           </pre>

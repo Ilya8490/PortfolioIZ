@@ -25,19 +25,19 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+    default: "Ilya | Junior Frontend / Fullstack Developer, Berlin",
     template: "%s | Ilya",
   },
   description:
-    "Berlin frontend developer and UX/UI designer building fast, accessible websites, clear product interfaces, and SEO-ready React experiences for modern teams.",
+    "Junior frontend / fullstack developer in Berlin building responsive web apps with React, TypeScript, Next.js, accessible UI, and selected project case studies.",
   alternates: {
     canonical: "/",
   },
   robots: robotsMetadata,
   openGraph: {
-    title: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+    title: "Ilya | Junior Frontend / Fullstack Developer, Berlin",
     description:
-      "Berlin frontend developer and UX/UI designer building fast, accessible websites, clear product interfaces, and SEO-ready React experiences for modern teams.",
+      "Junior frontend / fullstack developer in Berlin building responsive web apps with React, TypeScript, Next.js, accessible UI, and selected project case studies.",
     url: siteUrl,
     siteName: "Ilya Portfolio",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ilya | Frontend Developer & UX/UI Designer, Berlin",
+    title: "Ilya | Junior Frontend / Fullstack Developer, Berlin",
     description:
-      "Berlin frontend developer and UX/UI designer building fast, accessible websites, clear product interfaces, and SEO-ready React experiences for modern teams.",
+      "Junior frontend / fullstack developer in Berlin building responsive web apps with React, TypeScript, Next.js, accessible UI, and selected project case studies.",
     images: ["/og-image.png"],
   },
 };

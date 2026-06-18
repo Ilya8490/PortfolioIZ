@@ -1,30 +1,37 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { describe, expect, it } from "vitest";
-import { Hero } from "@/components/sections/hero";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 describe("Hero", () => {
-  it("renders the Phase 2 positioning, calls to action, and capability tags", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("renders the developer portfolio positioning, calls to action, and capability tags", async () => {
+    vi.stubEnv("NEXT_PUBLIC_CONTACT_EMAIL", "work@example.com");
+    vi.resetModules();
+    const { Hero } = await import("@/components/sections/hero");
+
     render(<Hero />);
 
     expect(
-      screen.getByText("Frontend Developer & UX/UI Designer — Berlin"),
+      screen.getByText("Junior Frontend / Fullstack Developer — Berlin"),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /Websites built to perform in the real world\./,
+        name: /Modern web projects shaped with clear code and thoughtful UI\./,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "View Work" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "View Projects" })).toHaveAttribute(
       "href",
       "#work",
     );
-    expect(screen.getByRole("link", { name: /Let's Talk/ })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /Get in touch/ })).toHaveAttribute(
       "href",
-      "#contact",
+      "mailto:work@example.com",
     );
 
-    for (const tag of ["Next.js", "TypeScript", "UX/UI", "SEO", "Performance"]) {
+    for (const tag of ["Next.js", "TypeScript", "React", "Node.js", "UI/UX"]) {
       expect(screen.getByText(tag)).toBeInTheDocument();
     }
   });

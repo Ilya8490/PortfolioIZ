@@ -1,14 +1,19 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import React from "react";
-import { afterEach, describe, expect, it } from "vitest";
-import { Navigation } from "@/components/layout/navigation";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 describe("Navigation", () => {
   afterEach(() => {
     document.body.style.overflow = "";
+    vi.unstubAllEnvs();
+    vi.resetModules();
   });
 
-  it("renders the portfolio logo, primary links, and contact CTA", () => {
+  it("renders the portfolio logo, primary links, and email contact CTA", async () => {
+    vi.stubEnv("NEXT_PUBLIC_CONTACT_EMAIL", "work@example.com");
+    vi.resetModules();
+    const { Navigation } = await import("@/components/layout/navigation");
+
     render(<Navigation />);
 
     expect(screen.getByRole("link", { name: "IL_" })).toHaveAttribute("href", "#top");
@@ -18,22 +23,24 @@ describe("Navigation", () => {
       "#process",
     );
     expect(screen.queryByRole("link", { name: "Lab" })).not.toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Services" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Technical Focus" })).toHaveAttribute(
       "href",
-      "#services",
+      "#technical-focus",
     );
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "#about");
     expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute(
       "href",
       "#contact",
     );
-    expect(screen.getByRole("link", { name: /Let's Talk/ })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /Get in touch/ })).toHaveAttribute(
       "href",
-      "#contact",
+      "mailto:work@example.com",
     );
   });
 
-  it("renders an accessible mobile menu button", () => {
+  it("renders an accessible mobile menu button", async () => {
+    const { Navigation } = await import("@/components/layout/navigation");
+
     render(<Navigation />);
 
     expect(screen.getByRole("button", { name: "Open navigation menu" })).toHaveAttribute(
@@ -43,6 +50,8 @@ describe("Navigation", () => {
   });
 
   it("moves focus into the mobile menu and locks page scroll when opened", async () => {
+    const { Navigation } = await import("@/components/layout/navigation");
+
     render(<Navigation />);
 
     fireEvent.click(screen.getByRole("button", { name: "Open navigation menu" }));
@@ -63,6 +72,8 @@ describe("Navigation", () => {
   });
 
   it("closes the mobile menu with Escape and returns focus to the trigger", async () => {
+    const { Navigation } = await import("@/components/layout/navigation");
+
     render(<Navigation />);
 
     const trigger = screen.getByRole("button", { name: "Open navigation menu" });

@@ -15,6 +15,6 @@ export const aboutStats: AboutStat[] = [
   },
   {
     value: "Open",
-    label: "Full-time + freelance",
+    label: "Junior roles",
   },
 ];

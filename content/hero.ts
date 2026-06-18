@@ -1,14 +1,14 @@
 export const heroContent = {
-  eyebrow: "Frontend Developer & UX/UI Designer — Berlin",
-  headline: ["Websites built", "to perform", "in the real world."],
-  body: "I design and build fast, responsive websites with clear user flows, polished interfaces, and clean frontend architecture.",
+  eyebrow: "Junior Frontend / Fullstack Developer — Berlin",
+  headline: ["Modern web projects", "shaped with clear code", "and thoughtful UI."],
+  body: "I build responsive web applications, document my learning path, and use selected projects to show practical React, TypeScript, and product thinking.",
   primaryCta: {
-    label: "View Work",
+    label: "View Projects",
     href: "#work",
   },
   secondaryCta: {
-    label: "Let's Talk",
+    label: "Get in touch",
     href: "#contact",
   },
-  tags: ["Next.js", "TypeScript", "UX/UI", "SEO", "Performance"],
+  tags: ["Next.js", "TypeScript", "React", "Node.js", "UI/UX"],
 };

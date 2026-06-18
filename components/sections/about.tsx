@@ -146,22 +146,23 @@ export function About() {
               id="about-title"
               className="text-display max-w-4xl text-4xl leading-[1.02] text-(--paper) md:text-6xl"
             >
-              Most websites look fine. Few of them actually work.
+              A growing developer profile shaped by real projects.
             </h2>
 
             <div className="mt-8 max-w-3xl space-y-5 text-sm leading-7 text-(--fog) md:text-base md:leading-8">
               <p>
-                I am a frontend developer and UX/UI designer based in Berlin, working
-                with startups, agencies, and businesses across Germany and Europe.
+                I am a junior frontend / fullstack developer based in Berlin,
+                building selected projects to practice modern web development,
+                product thinking, and clean implementation.
               </p>
               <p>
-                I take projects from early design decisions through to shipped,
-                performant frontend code - handling both the visual layer and the
-                technical implementation without handing off between disciplines.
+                My work combines responsive UI, TypeScript, React, Next.js, and
+                practical fullstack foundations such as authentication, APIs, and
+                database-backed features.
               </p>
               <p className="text-(--paper)">
                 {/* PRE-LAUNCH: update availability status before public launch */}
-                Currently open to full-time roles and select freelance projects.
+                Open to junior developer roles, internships, and professional networking.
               </p>
             </div>
 

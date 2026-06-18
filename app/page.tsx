@@ -6,7 +6,7 @@ import { Contact } from "@/components/sections/contact";
 import { Hero } from "@/components/sections/hero";
 import { Process } from "@/components/sections/process";
 import { SelectedWork } from "@/components/sections/selected-work";
-import { Services } from "@/components/sections/services";
+import { TechnicalFocus } from "@/components/sections/technical-focus";
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
         <Capabilities />
         <SelectedWork />
         <Process />
-        <Services />
+        <TechnicalFocus />
         <About />
         <Contact />
       </main>

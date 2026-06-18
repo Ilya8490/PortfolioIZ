@@ -29,7 +29,6 @@ describe("Footer", () => {
       );
     }
     expect(within(footerNav).queryByRole("link", { name: "Lab" })).not.toBeInTheDocument();
-    expect(within(footerNav).queryByRole("link", { name: "Services" })).not.toBeInTheDocument();
 
     expect(screen.getByRole("link", { name: "LinkedIn" })).toHaveAttribute(
       "target",

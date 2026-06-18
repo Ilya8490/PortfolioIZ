@@ -7,7 +7,7 @@ import { ANIM, prefersReducedMotion } from "@/lib/animation";
 import { gsap } from "@/lib/gsap";
 
 const headline =
-  "Open to the right opportunity. Freelance projects or full-time roles - let's talk.";
+  "Get in touch about junior developer roles, internships, or professional networking.";
 
 function ContactEmailText({ email }: { email: string }) {
   const [localPart, domain = ""] = email.split("@");
@@ -132,11 +132,12 @@ export function Contact() {
           </h2>
           <div className="mt-8 max-w-2xl space-y-5 text-sm leading-7 text-(--fog) md:text-base md:leading-8">
             <p>
-              Whether you have a clear brief or just an early idea, I am happy to
-              have an honest conversation about what you need and whether I am the
-              right person to help.
+              For job opportunities, internships, junior developer roles, or
+              professional networking, feel free to contact me.
             </p>
-            <p className="text-(--paper)">Response time: usually within 24 hours.</p>
+            <p className="text-(--paper)">
+              For HR, recruiters, and tech contacts, email is the best place to start.
+            </p>
           </div>
         </RevealOnScroll>
 
@@ -150,7 +151,7 @@ export function Contact() {
                   className="inline-flex min-h-12 items-center justify-center border border-(--lime) bg-(--lime) px-5 text-sm font-semibold text-[#111111] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--lime)"
                   style={{ color: "#111111" }}
                 >
-                  Send a Message -&gt;
+                  Email me -&gt;
                 </a>
               ) : (
                 <a
@@ -161,7 +162,7 @@ export function Contact() {
                   className="inline-flex min-h-12 items-center justify-center border border-(--lime) bg-(--lime) px-5 text-sm font-semibold text-[#111111] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--lime)"
                   style={{ color: "#111111" }}
                 >
-                  Contact via LinkedIn ↗
+                  Contact on LinkedIn ↗
                 </a>
               )}
               <a
@@ -178,11 +179,11 @@ export function Contact() {
             <p className="mt-6 text-sm leading-6 text-(--fog)">
               {hasContactEmail ? (
                 <>
-                  or reach me directly at{" "}
+                  Email:{" "}
                   <a
                     data-contact-action
                     href={`mailto:${contactContent.email}`}
-                    aria-label={`or reach me directly at ${contactContent.email}`}
+                    aria-label={`Email ${contactContent.email}`}
                     className="text-(--paper) transition-colors hover:text-(--lime)"
                   >
                     <ContactEmailText email={contactContent.email as string} />

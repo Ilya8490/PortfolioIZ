@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { contactContent } from "@/content/contact";
 import { navigationItems } from "@/content/navigation";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const contactHref = contactContent.email ? `mailto:${contactContent.email}` : "#contact";
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLElement>(null);
 
@@ -103,10 +105,10 @@ export function Navigation() {
         </div>
 
         <Link
-          href="#contact"
+          href={contactHref}
           className="text-mono-label hidden min-h-10 items-center border border-(--line) px-4 text-[11px] text-(--paper) transition-colors hover:border-(--lime) hover:text-(--lime) md:inline-flex"
         >
-          Let&apos;s Talk <span aria-hidden="true">→</span>
+          Get in touch <span aria-hidden="true">→</span>
         </Link>
 
         <button

@@ -42,7 +42,7 @@ Use `.env.example` as the public template. Keep `.env.local` private.
 - `components/layout/`: Navigation and footer.
 - `components/sections/`: Rendered portfolio sections.
 - `components/ui/`: Small shared UI primitives.
-- `content/`: Editable site content for navigation, hero, projects, process, services, contact, and about stats.
+- `content/`: Editable site content for navigation, hero, projects, process, technical focus, contact, and about stats.
 - `lib/`: Site config, animation utilities, GSAP setup, hooks, and tests.
 - `public/images/`: Portrait and project screenshots.
 - `styles/globals.css`: Global styles, tokens, focus states, and shared CSS helpers.
@@ -71,7 +71,7 @@ Project screenshots live in `public/images/projects/`. If a new project needs a 
 
 - Contact details and social links: `content/contact.ts` and the environment variables.
 - Project descriptions and external links: `content/projects.ts`.
-- Services: `content/services.ts`.
+- Technical focus: `content/technical-focus.ts`.
 - Process steps: `content/process.ts`.
 - Availability status: `components/sections/about.tsx` and `components/sections/contact.tsx`.
 - About stats: `content/about.ts`.
